@@ -155,6 +155,39 @@ draft: true
   pass ~9 in 10). You said: "the professors said they cluster in the same region for the same code"
 - Optional: the leaderboard keeps your best run (A3: "it only keeps the best run")
 - Takeaway to write: what's the smallest experiment you'd now trust?
+- Bridge: every number in this post came from one scoreboard. What was I actually optimizing?
+
+## Optimizing for the benchmark
+
+*~350 words*
+
+- Framing: everything above was tuned against a leaderboard. How much of it made a better agent, and how much
+  just fit these graders better?
+- Me fitting the benchmark:
+  - A4: 19/25 on the local tasks I tuned against vs 8/26 on the hidden ones. You said: "Maybe we are tuning too
+    much for this env"
+  - A4: the test-shape hint (lesson 1): general advice ("follow the public interface"), or a fit to how these
+    graders' hidden tests call code? It took 5 → 11, then 8 on a regrade
+  - A4/A5: caps and concurrency tuned to a leaderboard ranked on end-to-end time trade solves for minutes
+    (an 18-min cap gave 5 solves; lesson 5)
+  - A3: after the course's rules post, prompt lines from v4–v7 turned out to encode lessons from specific diagnosed
+    local failures, and were removed. You said: "patch.py seems like its a good idea, regardless of where it comes
+    from right?" (where is the line between a lesson and memorizing a task?)
+  - A5: the course bans task-specific hard-coding. The v2/v4 rules came from three failed tasks (PATH, test traces,
+    speed vs reference) and were kept only because any grader checks those things. Did they generalize?
+    sqlite-with-gcov passed; the hard subset went 3 → 4, within noise
+  - The leaderboard keeps your best run, so resubmitting the same zip selects on noise: A3 V12's 20 vs clean reruns
+    of 14 and 18. The headline number is partly a best-of-N draw
+- The agent fitting my checks (the same thing one level down):
+  - A2: existing tests had to be fingerprinted so the agent couldn't edit or delete them to pass
+  - A3: the agent rewrote a correct fix to match fake test data it wrote itself (lesson 1)
+  - A4: the model got around a false gate refusal by setting `worktree = /` in `.git/config`, which would have made
+    the patch delete every file
+  - A2 tasks 7/8: hidden tests wanted exact strings the spec never gave, so passing the benchmark and meeting the
+    requirement came apart in both directions
+- Takeaway to write: which of your changes would still help on a different benchmark, and which only helped here?
+  What would you hold out to check?
+- Bridge: the agent optimizes whatever you measure, and so did I. That is where my own judgement had to come in
 
 ## Overruling the agent
 
