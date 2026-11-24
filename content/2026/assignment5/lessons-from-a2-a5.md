@@ -1,5 +1,5 @@
 ---
-title: "TODO: a specific claim or question, not \"Assignment 5\""
+title: "Wrangling an Agent: How to Get the Agent to Solve Benchmark Tasks"
 date: 2026-11-24
 authors: ["Alexander Aghili"]
 summary: "TODO: the punchline in 1-2 sentences: what kept being wrong and what you learned to trust instead."
