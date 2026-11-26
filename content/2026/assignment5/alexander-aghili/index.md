@@ -130,4 +130,4 @@ Designing the harness around these tests made me wonder whether I'd focused too 
 
 ## AI use
 
-Claude Code wrote much of the harness and serving code and helped with experiments and analysis. Codex contributed to part of Assignment 2 and plotted the six charts with Matplotlib. The charts use recorded measurements from the Assignment 3 README, Assignment 4 writeup, and Assignment 5 experiment notes and run tables. I directed the experiments and chose the interventions described here.
+I used Claude Code to write much of the harness and serving code and to help run and analyze experiments. Codex plotted the six charts from my recorded measurements.
