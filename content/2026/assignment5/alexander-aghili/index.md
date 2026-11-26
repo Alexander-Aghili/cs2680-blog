@@ -80,11 +80,11 @@ Repeated patches and unchanged failure scores seem like useful stopping signals,
 
 ## Local benchmarks gave misleading answers
 
-On Assignment 4, I got nineteen solves locally and eight on the leaderboard.
+On Assignment 4, my starting setup solved nineteen of twenty-five tasks locally and eight of twenty-six on the leaderboard.
 
 The replay benchmark was friendly to the cache. It put the server's output straight into the next prompt, reusing more text than the agent's actual requests did. In that comparison, it cached 83–92% of prompt tokens against about 62% in a real run. Other experiments had different cache rates.
 
-I checked the fastest engine against a reference server too. That exposed incorrect output from the combination of mixed chunked prefill and multi-token prediction.
+I checked the fastest engine against a reference server too. That exposed incorrect output from the combination of mixed chunked prefill and multi-token prediction (MTP).
 
 ![Mixed chunked prefill produced 693 tokens per second with large discrepancies from the reference on 11.4 percent of tokens. Turning it off retained 687 tokens per second and reduced the discrepancy rate to 1.0 percent.](engine-check.svg "Figure 4. Removing mixed chunked prefill preserved nearly all throughput while reducing large discrepancies from the reference server.")
 
@@ -122,11 +122,11 @@ I tried alternating two configurations on five local tasks. One got twelve succe
 
 ## Why my scores stayed low
 
-I did worse than I wanted on Assignments 4 and 5. My final Assignment 4 submission solved twelve of twenty-six tasks. In Assignment 5, both updated models solved four of sixteen on the hard local subset. I think Assignment 3 went well because I spent so much time getting the harness infrastructure right. For Assignment 4 I stayed with the engine too long, leaving less time for harness bugs and correctness failures. The repeated bad patches and passing self-checks on failed tasks make me think the agent needed better feedback. My local tests were optimistic too, with nineteen solves becoming eight on the Assignment 4 leaderboard and thirteen of fifteen passing on the easier Assignment 5 subset.
+I did worse than I wanted on Assignments 4 and 5. My final Assignment 4 submission solved twelve of twenty-six tasks. In Assignment 5, both updated models solved four of sixteen on the hard local subset. I think Assignment 3 went well because I spent so much time getting the harness infrastructure right. For Assignment 4 I stayed with the engine too long, leaving less time for harness bugs and correctness failures. The repeated bad patches and passing self-checks on failed tasks make me think the agent needed better feedback. My local tests were optimistic too, with nineteen of twenty-five local solves becoming eight of twenty-six on the Assignment 4 leaderboard and thirteen of fifteen passing on the easier Assignment 5 subset.
 
-## Fitting the harness to SWE-Bench
+## Fitting the harness to the benchmarks
 
-Designing the harness around these tests made me wonder whether I'd focused too much on SWE-Bench. The changes helped on tasks I kept testing, but I'm unsure how well they'd carry over to unfamiliar software engineering tasks.
+Designing the harness around these tests made me wonder whether I'd focused too much on SWE-bench Pro and Terminal-Bench. The changes helped on tasks I kept testing, but I'm unsure how well they'd carry over to unfamiliar software engineering tasks.
 
 ## AI use
 
