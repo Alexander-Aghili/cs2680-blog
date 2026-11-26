@@ -18,7 +18,7 @@ The tests sometimes checked the wrong thing, and bugs in my harness made the mod
 
 One Go patch supplied a standalone function where the tests expected a method. The test package couldn't even compile against it. I found failures like this while reading through 212 failed gradings from Assignment 4, including 101 where at least three quarters of the hidden tests failed. Seeing the same scores on later attempts made me suspect the agent was repeating a mistake.
 
-I added guidance about matching the expected interface. The next build solved eleven of twenty-six tasks, up from five. Of the targeted guidance changes I recorded, this had the biggest gain.
+I added guidance about matching the expected interface. The next build solved eleven of twenty-six tasks, up from five. The same build scored eight on a rerun, though, so part of that jump was run-to-run variation.
 
 I also looked at five failed tasks from a hard Assignment 3 batch. On four of them, the agent's own scripts passed. Some scripts were calling the wrong function, and in one case the agent changed a correct fix to fit data it had made up for a test. The check inherited the same assumption as the code.
 
@@ -90,7 +90,7 @@ I checked the fastest engine against a reference server too. That exposed incorr
 
 I turned mixed chunked prefill off. That kept 99.1% of the throughput while reducing large reference discrepancies by 10.4 percentage points, though I hadn't explained the remaining 1.0% discrepancy rate.
 
-For Assignment 5, I picked a subset partly because its container images were small and quick to set up. It scored thirteen out of fifteen. The hard subset scored three out of sixteen. My convenient local test was giving me a very optimistic view of the agent.
+For Assignment 5, I picked a subset partly because its container images were small and quick to set up. It scored thirteen out of fifteen. With the earlier harness, the hard subset scored three out of sixteen. My convenient local test was giving me a very optimistic view of the agent.
 
 ![The 27B model generated 203 output tokens per second and finished in 30.3 minutes. The 35B-A3B model generated 473 tokens per second and finished in 26.6 minutes. Both solved 4 of 16 tasks.](model-speed.svg "Figure 5. One recorded run per model with different serving configurations.")
 
@@ -102,7 +102,7 @@ Concurrency affected the deadline too. Adding 50% more active tasks gave me 19% 
 
 ## Engine tuning and harness changes
 
-KV caching let the server reuse work on earlier prompt tokens. I added an 8 GB host cache to keep more conversation prefixes available. When I changed just host caching in the replay, cache hits went from 66.7% to 91.9%, and output went from 561 to 693 tokens per second, about 24% faster. Both runs still had mixed chunked prefill enabled. After I disabled it for correctness, the cached engine gave 687 tokens per second. The separate serving benchmark put the final engine at 459 tokens per second against 335 with four concurrent requests, and 604 against 483 with eight. Those are gains of 37% and 25%.
+KV caching let the server reuse work on earlier prompt tokens. I added an 8 GB host cache to keep more conversation prefixes available. When I changed just host caching in the replay, cache hits went from 66.7% to 91.9%, and output went from 561 to 693 tokens per second, about 24% faster. Both runs still had mixed chunked prefill enabled, and that replay favors caching, so a real run would likely gain less. After I disabled it for correctness, the cached engine gave 687 tokens per second. The separate serving benchmark put the final engine at 459 tokens per second against 335 with four concurrent requests, and 604 against 483 with eight. Those are gains of 37% and 25%.
 
 The baseline completed in 221 minutes with eight solves. With MTP and the original agent, I got thirteen in 207 minutes. The final configuration got twelve in 63 minutes after I'd also changed the harness. Grading stayed in the conversation, which saved repeating work. Earlier retries had spent forty or more calls rereading the repository. The full run was 71% shorter, including all the changes to serving, retries, and task budgets.
 
@@ -130,4 +130,4 @@ Designing the harness around these tests made me wonder whether I'd focused too 
 
 ## AI use
 
-I used Claude Code to write much of the harness and serving code and to help run and analyze experiments. Codex plotted the six charts from my recorded measurements.
+I used Claude Code to write much of the harness and serving code, to help run and analyze experiments, and to publish this post. Claude Code wrote a rough outline for this post, with my help gathering specific statistics from my run records. I wrote the post in my own words, then used Claude Code to review it and make some final edits. Codex plotted the six charts from my recorded measurements.
